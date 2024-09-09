@@ -1,4 +1,4 @@
-import { Table } from 'antd'
+import { Popconfirm, Table } from 'antd'
 import axios from 'axios'
 import { useLottie } from 'lottie-react'
 import React, { useContext, useEffect, useState } from 'react'
@@ -53,6 +53,21 @@ const UserManagement = (props: Props) => {
     animationData: management
   };
 
+  const handleDelete = (id: string) => {
+    axios.delete(`http://localhost:5555/v1/users/${id}`, {
+      headers: {
+        'Authorization': `Bearer ${user.state.token}`
+      }
+    }).then(() => {
+      if (id === user.state.id) {
+        localStorage.removeItem('microChat')
+        navigate('/')
+      } else {
+        setContent(content.filter(handle => handle.id !== id))
+      }
+    })
+  }
+
   const { View } = useLottie(defaultOptions, { width: '25%', height: '25%', marginLeft: 'auto', marginRight: 'auto' })
   
   return (
@@ -105,9 +120,14 @@ const UserManagement = (props: Props) => {
                           } 
                             
                         />
-                        <DeleteOutlined
-                          className='text-red-400 ml-2' 
-                        />
+                        <Popconfirm 
+                          title={'Tem certeza que deseja excluir este contato?'}
+                          onConfirm={() => handleDelete(element.id)}
+                        >
+                          <DeleteOutlined
+                            className='text-red-400 ml-2' 
+                          />
+                        </Popconfirm>
   
                       </div>
                     )

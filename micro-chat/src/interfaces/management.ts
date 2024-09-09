@@ -9,3 +9,15 @@ export interface UserInfoManagement {
   phone: string
   email: string
 } 
+
+export interface Message {
+  id: string,
+  roomId: string,
+  user: {
+    name: string,
+    id: string
+  },
+  message: string,
+  updatedAt: Date,
+  createdAt: Date
+}

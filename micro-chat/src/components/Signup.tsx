@@ -88,7 +88,6 @@ const Signup = (props: Props) => {
           className='w-2/3 mx-auto'
           type='primary'
           htmlType='submit'
-          onClick={() => console.log('CLICKED')}
         >
           Cadastrar
         </Button>
