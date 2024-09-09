@@ -38,7 +38,6 @@ const Chat = (props: Props) => {
   }, [content]);
 
   useEffect(() => {
-    console.log('AHHHHHHHHHHH')
     socket.on('receive_message', data => {
       data.roomId === roomId &&
       setMessages([...messages, data])
